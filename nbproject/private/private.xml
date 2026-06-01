@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project-private xmlns="http://www.netbeans.org/ns/project-private/1">
+    <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
+    <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
+        <group>
+            <file>file:/D:/CNPM/CoVua/src/controller/UserDAO.java</file>
+            <file>file:/D:/CNPM/CoVua/src/controller/RoundDAO.java</file>
+            <file>file:/D:/CNPM/CoVua/src/controller/MatchDAO.java</file>
+            <file>file:/D:/CNPM/CoVua/src/controller/ResultDAO.java</file>
+            <file>file:/D:/CNPM/CoVua/src/controller/PlayerDAO.java</file>
+            <file>file:/D:/CNPM/CoVua/src/view/LoginFrm.java</file>
+            <file>file:/D:/CNPM/CoVua/src/model/User.java</file>
+            <file>file:/D:/CNPM/CoVua/src/view/OrganizerHomeFrm.java</file>
+            <file>file:/D:/CNPM/CoVua/src/controller/DAO.java</file>
+            <file>file:/D:/CNPM/CoVua/src/view/SelectMatchFrm.java</file>
+            <file>file:/D:/CNPM/CoVua/src/view/SelectRoundFrm.java</file>
+            <file>file:/D:/CNPM/CoVua/src/model/Result.java</file>
+            <file>file:/D:/CNPM/CoVua/src/view/UpdateResultFrm.java</file>
+            <file>file:/D:/CNPM/CoVua/src/model/Match.java</file>
+            <file>file:/D:/CNPM/CoVua/src/model/Round.java</file>
+            <file>file:/D:/CNPM/CoVua/src/model/Player.java</file>
+            <file>file:/D:/CNPM/CoVua/test/controller/MatchDAOTest.java</file>
+            <file>file:/D:/CNPM/CoVua/test/controller/PlayerDAOTest.java</file>
+            <file>file:/D:/CNPM/CoVua/test/controller/ResultDAOTest.java</file>
+            <file>file:/D:/CNPM/CoVua/test/controller/RoundDAOTest.java</file>
+            <file>file:/D:/CNPM/CoVua/test/controller/UserDAOTest.java</file>
+        </group>
+    </open-files>
+</project-private>
