@@ -22,7 +22,7 @@ public class SelectMatchFrm extends javax.swing.JFrame implements MouseListener 
         initComponents();
         this.user = user;
         this.round = round;
-        userName.setText(user.getFullName());
+        userName.setText(user.getFullname());
         selectedRound.setText("Vòng " + round.getRoundNum());
         MatchDAO matchDAO = new MatchDAO();
         matches = matchDAO.getMatchRound(round);

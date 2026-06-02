@@ -15,13 +15,14 @@ public class PlayerDAO extends DAO {
         try {
             PreparedStatement ps = con.prepareStatement("UPDATE tblPlayer SET eloRating = ? WHERE ID = ?");
             ps.setFloat(1, player.getEloRating());
-            ps.setInt(2, player.getID());
+            ps.setInt(2, player.getId());
             ps.executeUpdate();
             return true;
         } catch (Exception e) {
             e.printStackTrace();
         }
         return false;
+    }
 
     public Player searchPlayer(int ID) {
         Player player = null;

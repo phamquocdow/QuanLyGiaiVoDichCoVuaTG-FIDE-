@@ -18,7 +18,7 @@ public class SelectRoundFrm extends javax.swing.JFrame implements MouseListener 
     public SelectRoundFrm(User user) {
         initComponents();
         this.user = user;
-        userName.setText(user.getFullName());
+        userName.setText(user.getFullname());
         RoundDAO roundDAO = new RoundDAO();
         listRound = roundDAO.getRoundList();
         String data[][] = new String[listRound.size()][1];
