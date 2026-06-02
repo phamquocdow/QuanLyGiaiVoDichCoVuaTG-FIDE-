@@ -1,8 +1,7 @@
 package model;
 
-import java.util.Date;
 import java.util.ArrayList;
-// import model.Round;
+import java.util.Date;
 
 public class Tournament {
     private int id;
@@ -11,7 +10,7 @@ public class Tournament {
     private int organizationTimes;
     private String address;
     private String description;
-    private ArrayList<Integer> rounds;
+    private ArrayList<Round> rounds = new ArrayList<Round>();
 
     public Tournament(int id, String name, Date year, int organizationTimes, String address, String description) {
         this.id = id;
@@ -22,7 +21,7 @@ public class Tournament {
         this.description = description;
     }
 
-    public int getId() {
+    public int getID() {
         return id;
     }
 
@@ -46,11 +45,11 @@ public class Tournament {
         return description;
     }
 
-    public ArrayList<Integer> getRounds() {
+    public ArrayList<Round> getRounds() {
         return rounds;
     }
 
-    public void setRounds(ArrayList<Integer> rounds) {
+    public void setRounds(ArrayList<Round> rounds) {
         this.rounds = rounds;
     }
 

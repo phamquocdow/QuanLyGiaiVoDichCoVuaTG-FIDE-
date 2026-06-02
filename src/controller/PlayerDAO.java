@@ -2,7 +2,6 @@ package controller;
 
 import model.Player;
 import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 
 public class PlayerDAO extends DAO {
 
@@ -11,12 +10,16 @@ public class PlayerDAO extends DAO {
     }
 
     public boolean updateElo(Player player, float elo) {
-        player.setEloRating(elo);
+        if (elo < 0) {
+            return false;
+        }
+
         try {
             PreparedStatement ps = con.prepareStatement("UPDATE tblPlayer SET eloRating = ? WHERE ID = ?");
-            ps.setFloat(1, player.getEloRating());
-            ps.setInt(2, player.getId());
+            ps.setFloat(1, elo);
+            ps.setInt(2, player.getID());
             ps.executeUpdate();
+            player.setEloRating(elo);
             return true;
         } catch (Exception e) {
             e.printStackTrace();
@@ -24,13 +27,13 @@ public class PlayerDAO extends DAO {
         return false;
     }
 
-    public Player searchPlayer(int ID) {
+    public Player searchPlayer(int id) {
         Player player = null;
         String sql = "SELECT * FROM tblPlayer WHERE ID = ?";
 
         try {
             java.sql.PreparedStatement ps = con.prepareStatement(sql);
-            ps.setInt(1, ID);
+            ps.setInt(1, id);
             java.sql.ResultSet rs = ps.executeQuery();
             if (rs.next()) {
                 player = new Player(

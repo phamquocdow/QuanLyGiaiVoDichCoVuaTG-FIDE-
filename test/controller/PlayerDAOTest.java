@@ -28,8 +28,7 @@ public class PlayerDAOTest {
     public void testUpdateElo_Valid() {
         PlayerDAO dao = new PlayerDAO();
 
-        Player player = new Player();
-        player.setID(1);
+        Player player = dao.searchPlayer(1);
 
         boolean result = dao.updateElo(player, 2400f);
 
@@ -40,11 +39,10 @@ public class PlayerDAOTest {
     public void testUpdateElo_Invalid() {
         PlayerDAO dao = new PlayerDAO();
 
-        Player player = new Player();
-        player.setID(1);
+        Player player = dao.searchPlayer(1);
 
         boolean result = dao.updateElo(player, -200f);
 
-        assertTrue(result);
+        assertFalse(result);
     }
 }

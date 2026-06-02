@@ -25,8 +25,7 @@ public class ResultDAOTest {
 
     @Test
     public void testGetResultMatch_HaveData() {
-        Match match = new Match();
-        match.setID(1);
+        Match match = new Match(1, 0);
 
         ResultDAO dao = new ResultDAO();
 
@@ -43,8 +42,7 @@ public class ResultDAOTest {
 
     @Test
     public void testGetResultMatch_NoData() {
-        Match match = new Match();
-        match.setID(9999);
+        Match match = new Match(9999, 0);
 
         ResultDAO dao = new ResultDAO();
 
@@ -58,8 +56,7 @@ public class ResultDAOTest {
     public void testUpdateResult_ValidData() {
         ResultDAO dao = new ResultDAO();
 
-        Match match = new Match();
-        match.setID(1);
+        Match match = new Match(1, 0);
 
         Result result = dao.getResultMatch(match).get(0);
 
@@ -72,8 +69,7 @@ public class ResultDAOTest {
     public void testUpdateResult_InvalidScore() {
         ResultDAO dao = new ResultDAO();
 
-        Match match = new Match();
-        match.setID(1);
+        Match match = new Match(1, 0);
 
         Result result = dao.getResultMatch(match).get(0);
 
@@ -86,8 +82,7 @@ public class ResultDAOTest {
     public void testUpdateResult_InvalidElo() {
         ResultDAO dao = new ResultDAO();
 
-        Match match = new Match();
-        match.setID(1);
+        Match match = new Match(1, 0);
 
         Result result = dao.getResultMatch(match).get(0);
 

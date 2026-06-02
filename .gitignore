@@ -4,6 +4,7 @@ dist/
 *.class
 
 # Cài đặt cá nhân của NetBeans
+.vscode/
 nbproject/private/
 nbproject/projectui.properties
 

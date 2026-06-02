@@ -11,7 +11,7 @@ import model.Player;
 import model.Result;
 import model.User;
 
-public class UpdateResultFrm extends javax.swing.JFrame implements ActionListener {
+public class UpdateResultFrm extends javax.swing.JFrame {
 
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(UpdateResultFrm.class.getName());
 
@@ -30,8 +30,7 @@ public class UpdateResultFrm extends javax.swing.JFrame implements ActionListene
         player2name.setText(listResult.get(1).getPlayer().getName());
         txtPlayer1Elo.setText(listResult.get(0).getPlayer().getEloRating()+"");
         txtPlayer2Elo.setText(listResult.get(1).getPlayer().getEloRating()+"");
-        btnUpdate.addActionListener(this);
-        btnCancel.addActionListener(this);
+        this.setLocationRelativeTo(null);
     }
 
     @SuppressWarnings("unchecked")
@@ -78,9 +77,11 @@ public class UpdateResultFrm extends javax.swing.JFrame implements ActionListene
 
         btnUpdate.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
         btnUpdate.setText("Cập nhật");
+        btnUpdate.addActionListener(this::btnUpdateActionPerformed);
 
         btnCancel.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
         btnCancel.setText("Huỷ");
+        btnCancel.addActionListener(this::btnCancelActionPerformed);
 
         player1name.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
         player1name.setText("player1's name");
@@ -92,14 +93,6 @@ public class UpdateResultFrm extends javax.swing.JFrame implements ActionListene
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(192, 192, 192)
-                .addComponent(matchName, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel1)
-                .addGap(119, 119, 119))
             .addGroup(layout.createSequentialGroup()
                 .addGap(59, 59, 59)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -133,15 +126,24 @@ public class UpdateResultFrm extends javax.swing.JFrame implements ActionListene
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(player2name, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addContainerGap())))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(jLabel1)
+                        .addGap(119, 119, 119))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(matchName, javax.swing.GroupLayout.PREFERRED_SIZE, 238, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(136, 136, 136))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(17, 17, 17)
                 .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(4, 4, 4)
                 .addComponent(matchName)
-                .addGap(16, 16, 16)
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(player1name)
                     .addComponent(player2name))
@@ -172,6 +174,31 @@ public class UpdateResultFrm extends javax.swing.JFrame implements ActionListene
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void btnCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelActionPerformed
+       (new SelectRoundFrm(user)).setVisible(true);
+       this.dispose();
+    }//GEN-LAST:event_btnCancelActionPerformed
+
+    private void btnUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateActionPerformed
+        try {
+            ResultDAO resultDAO = new ResultDAO();
+            boolean updateResult1 = resultDAO.updateResult(listResult.get(0), Float.parseFloat(txtPlayer1Score.getText()), Float.parseFloat(txtPlayer1Elo.getText()));
+            boolean updateResult2 = resultDAO.updateResult(listResult.get(1), Float.parseFloat(txtPlayer2Score.getText()), Float.parseFloat(txtPlayer2Elo.getText()));
+            PlayerDAO playerDAO = new PlayerDAO();
+            boolean updateElo1 = playerDAO.updateElo(listResult.get(0).getPlayer(), Float.parseFloat(txtPlayer1Elo.getText()));
+            boolean updateElo2 = playerDAO.updateElo(listResult.get(1).getPlayer(), Float.parseFloat(txtPlayer2Elo.getText()));
+            if (updateResult1 && updateResult2 && updateElo1 && updateElo2) {
+                JOptionPane.showMessageDialog(this, "Cập nhật thành công");
+                this.dispose();
+            } else {
+                JOptionPane.showMessageDialog(this, "Cập nhật thất bại");
+            }
+            (new SelectRoundFrm(user)).setVisible(true);
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+    }//GEN-LAST:event_btnUpdateActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCancel;
@@ -190,29 +217,4 @@ public class UpdateResultFrm extends javax.swing.JFrame implements ActionListene
     private javax.swing.JTextField txtPlayer2Elo;
     private javax.swing.JTextField txtPlayer2Score;
     // End of variables declaration//GEN-END:variables
-
-    @Override
-    public void actionPerformed(ActionEvent e) {
-        if (e.getSource() == btnUpdate) {
-            try {
-                ResultDAO resultDAO = new ResultDAO();
-                boolean updateResult1 = resultDAO.updateResult(listResult.get(0), Float.parseFloat(txtPlayer1Score.getText()), Float.parseFloat(txtPlayer1Elo.getText()));
-                boolean updateResult2 = resultDAO.updateResult(listResult.get(1), Float.parseFloat(txtPlayer2Score.getText()), Float.parseFloat(txtPlayer2Elo.getText()));
-                PlayerDAO playerDAO = new PlayerDAO();
-                boolean updateElo1 = playerDAO.updateElo(listResult.get(0).getPlayer(), Float.parseFloat(txtPlayer1Elo.getText()));
-                boolean updateElo2 = playerDAO.updateElo(listResult.get(1).getPlayer(), Float.parseFloat(txtPlayer2Elo.getText()));
-                if (updateResult1 && updateResult2 && updateElo1 && updateElo2) {
-                    JOptionPane.showMessageDialog(this, "Cập nhật thành công");
-                    this.dispose();
-                } else {
-                    JOptionPane.showMessageDialog(this, "Cập nhật thất bại");
-                }
-                (new SelectRoundFrm(user)).setVisible(true);
-            } catch (Exception ex) {
-                ex.printStackTrace();
-            }
-        } else if (e.getSource() == btnCancel) {
-            this.dispose();
-        }
-    }
 }

@@ -136,9 +136,7 @@ public class LoginFrm extends javax.swing.JFrame implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        User user = new User(
-                txtUsername.getText(),
-                txtPassword.getText());
+        User user = new User(txtUsername.getText(), txtPassword.getText());
         if (new UserDAO().checkLogin(user)) {
             System.out.printf(user.getFullname());
             if (user.getRole().equals("Manager")) {

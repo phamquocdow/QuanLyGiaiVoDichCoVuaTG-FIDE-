@@ -1,12 +1,14 @@
 package view.updateResult;
 
 import controller.RoundDAO;
+import controller.TournamentDAO;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.ArrayList;
 import model.Round;
 import model.User;
 import javax.swing.table.DefaultTableModel;
+import view.OrganizerHomeFrm;
 
 public class SelectRoundFrm extends javax.swing.JFrame implements MouseListener {
 
@@ -20,7 +22,7 @@ public class SelectRoundFrm extends javax.swing.JFrame implements MouseListener 
         this.user = user;
         userName.setText(user.getFullname());
         RoundDAO roundDAO = new RoundDAO();
-        listRound = roundDAO.getRoundList();
+        listRound = roundDAO.getRoundList((new TournamentDAO()).getTournamentLatest());
         String data[][] = new String[listRound.size()][1];
         for (int i = 0; i < listRound.size(); i++) {
             Round r = listRound.get(i);
@@ -30,6 +32,7 @@ public class SelectRoundFrm extends javax.swing.JFrame implements MouseListener 
         DefaultTableModel dtm = new DefaultTableModel(data, columns);
         tblListRound.setModel(dtm);
         tblListRound.addMouseListener(this);
+        this.setLocationRelativeTo(null);
     }
 
     /**
@@ -45,6 +48,7 @@ public class SelectRoundFrm extends javax.swing.JFrame implements MouseListener 
         jLabel1 = new javax.swing.JLabel();
         jScrollPane = new javax.swing.JScrollPane();
         tblListRound = new javax.swing.JTable();
+        jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -66,6 +70,9 @@ public class SelectRoundFrm extends javax.swing.JFrame implements MouseListener 
         ));
         jScrollPane.setViewportView(tblListRound);
 
+        jButton1.setText("Quay lại");
+        jButton1.addActionListener(this::jButton1ActionPerformed);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -79,7 +86,10 @@ public class SelectRoundFrm extends javax.swing.JFrame implements MouseListener 
                         .addGap(91, 91, 91)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 242, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel1))))
+                            .addComponent(jLabel1)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(173, 173, 173)
+                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(96, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -90,18 +100,26 @@ public class SelectRoundFrm extends javax.swing.JFrame implements MouseListener 
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(17, Short.MAX_VALUE))
+                .addComponent(jScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 164, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jButton1)
+                .addContainerGap(9, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+       (new OrganizerHomeFrm(user)).setVisible(true);
+       this.dispose();
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments
      */
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane;
     private javax.swing.JTable tblListRound;

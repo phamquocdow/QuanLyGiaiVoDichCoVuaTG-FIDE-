@@ -1,6 +1,7 @@
 package view;
 
 import model.User;
+import view.updateResult.SelectRoundFrm;
 
 public class OrganizerHomeFrm extends javax.swing.JFrame {
 
@@ -86,8 +87,8 @@ public class OrganizerHomeFrm extends javax.swing.JFrame {
     }//GEN-LAST:event_btnViewStatisticsActionPerformed
 
     private void btnUpdateResultActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateResultActionPerformed
-//        (new SelectRoundFrm(user)).setVisible(true);
-//        this.dispose();
+       (new SelectRoundFrm(user)).setVisible(true);
+       this.dispose();
     }//GEN-LAST:event_btnUpdateResultActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

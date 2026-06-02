@@ -7,10 +7,7 @@ package controller;
 import java.util.ArrayList;
 import model.Match;
 import model.Round;
-import org.junit.After;
-import org.junit.AfterClass;
-import org.junit.Before;
-import org.junit.BeforeClass;
+import model.Tournament;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
@@ -30,8 +27,11 @@ public class MatchDAOTest {
     public void testGetMatchRound_HaveData() {
         RoundDAO roundDAO = new RoundDAO();
         MatchDAO matchDAO = new MatchDAO();
+        TournamentDAO tournamentDAO = new TournamentDAO();
 
-        Round round = roundDAO.getRoundList().get(0);
+        Tournament tournament = tournamentDAO.getTournamentLatest();
+
+        Round round = roundDAO.getRoundList(tournament.getID()).get(0);
 
         ArrayList<Match> result = matchDAO.getMatchRound(round);
 
@@ -42,8 +42,7 @@ public class MatchDAOTest {
     public void testGetMatchRound_NoData() {
         MatchDAO matchDAO = new MatchDAO();
 
-        Round round = new Round();
-        round.setMatches(new ArrayList<>());
+        Round round = new Round(9999, 0, new ArrayList<>());
 
         ArrayList<Match> result = matchDAO.getMatchRound(round);
 

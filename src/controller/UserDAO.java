@@ -18,7 +18,7 @@ public class UserDAO extends DAO {
             ps.setString(2, user.getPassword());
             ResultSet rs = ps.executeQuery();
             if (rs.next()) {
-                user.setId(rs.getInt("ID"));
+                user.setID(rs.getInt("ID"));
                 user.setFullname(rs.getString("fullname"));
                 user.setBirthDate(rs.getDate("birthDate"));
                 user.setRole(rs.getString("role"));

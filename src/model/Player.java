@@ -17,13 +17,13 @@ public class Player {
         this.nation = nation;
         this.eloRating = eloRating;
         this.note = note;
-    }
+    }   
 
-    public int getId() {
+    public int getID() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setID(int id) {
         this.id = id;
     }
 

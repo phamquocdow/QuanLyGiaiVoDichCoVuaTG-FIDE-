@@ -20,14 +20,14 @@ public class EloStatsDAO extends DAO {
 
         try {
             PreparedStatement ps = con.prepareStatement(sql);
-            ps.setInt(1, tournament.getId());
+            ps.setInt(1, tournament.getID());
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
-                int playerId = rs.getInt("tblPlayerID");
-                Player player = playerDAO.searchPlayer(playerId);
+                int playerID = rs.getInt("tblPlayerID");
+                Player player = playerDAO.searchPlayer(playerID);
 
                 float oldElo = player.getEloRating();
-                float totalChange = getTotalEloChange(playerId, tournament.getId());
+                float totalChange = getTotalEloChange(playerID, tournament.getID());
                 float newElo = oldElo + totalChange;
 
                 EloStats es = new EloStats(
@@ -47,14 +47,14 @@ public class EloStatsDAO extends DAO {
         return listEloStats;
     }
 
-    private float getTotalEloChange(int playerId, int tournamentId) {
+    private float getTotalEloChange(int playerID, int tournamentID) {
         String sql = "SELECT SUM(r.eloChange) FROM tblResult r " +
                 "INNER JOIN tblMatch m ON r.tblMatchID = m.ID " +
                 "INNER JOIN tblRound rd ON m.tblRoundID = rd.ID " +
                 "WHERE r.tblPlayerID = ? AND rd.tblTournamentID = ?";
         try (PreparedStatement ps = con.prepareStatement(sql)) {
-            ps.setInt(1, playerId);
-            ps.setInt(2, tournamentId);
+            ps.setInt(1, playerID);
+            ps.setInt(2, tournamentID);
             ResultSet rs = ps.executeQuery();
             if (rs.next()) {
                 return rs.getFloat(1);

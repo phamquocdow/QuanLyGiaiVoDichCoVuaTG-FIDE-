@@ -6,6 +6,7 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 
 public class TournamentDAO extends DAO {
+
     public TournamentDAO() {
         super();
     }
@@ -20,7 +21,7 @@ public class TournamentDAO extends DAO {
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 Tournament tournament = new Tournament(
-                        rs.getInt("id"),
+                        rs.getInt("ID"),
                         rs.getString("name"),
                         rs.getDate("year"),
                         rs.getInt("organizationTimes"),
@@ -36,4 +37,31 @@ public class TournamentDAO extends DAO {
         return listTournament;
     }
 
+    public Tournament getTournamentLatest() {
+        String sql = "SELECT * FROM tblTournament ORDER BY year DESC";
+
+        try {
+            PreparedStatement ps = con.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+
+            if (rs.next()) {
+                Tournament tournament = new Tournament(
+                        rs.getInt("ID"),
+                        rs.getString("name"),
+                        rs.getDate("year"),
+                        rs.getInt("organizationTimes"),
+                        rs.getString("address"),
+                        rs.getString("description"));
+
+                rs.close();
+                ps.close();
+                return tournament;
+            }
+            rs.close();
+            ps.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
 }

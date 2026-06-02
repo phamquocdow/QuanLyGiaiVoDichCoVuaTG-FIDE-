@@ -7,9 +7,6 @@ public class Round {
     private int roundNum;
     private ArrayList<Match> matches;
 
-    public Round() {
-    }
-
     public Round(int ID, int roundNum, ArrayList<Match> matches) {
         this.ID = ID;
         this.roundNum = roundNum;
@@ -20,25 +17,12 @@ public class Round {
         return ID;
     }
 
-    public void setID(int ID) {
-        this.ID = ID;
-    }
-
     public int getRoundNum() {
         return roundNum;
-    }
-
-    public void setRoundNum(int roundNum) {
-        this.roundNum = roundNum;
     }
 
     public ArrayList<Match> getMatches() {
         return matches;
     }
 
-    public void setMatches(ArrayList<Match> matches) {
-        this.matches = matches;
-    }
-    
-    
 }

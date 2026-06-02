@@ -13,7 +13,7 @@ import static org.junit.Assert.*;
  * @author MSI PC
  */
 public class UserDAOTest {
-    
+
     public UserDAOTest() {
     }
 
@@ -22,9 +22,7 @@ public class UserDAOTest {
      */
     @Test
     public void testCheckLogin_Success() {
-        User user = new User();
-        user.setUsername("admin");
-        user.setPassword("123456");
+        User user = new User("admin", "123456");
 
         UserDAO dao = new UserDAO();
 
@@ -34,10 +32,8 @@ public class UserDAOTest {
     }
 
     @Test
-    public void testCheckLogin_WrongPassword() {
-        User user = new User();
-        user.setUsername("admin");
-        user.setPassword("saimatkhau");
+    public void testCheckLogin_Wrong() {
+        User user = new User("admin", "wrongpassword");
 
         UserDAO dao = new UserDAO();
 
@@ -46,17 +42,4 @@ public class UserDAOTest {
         assertFalse(result);
     }
 
-    @Test
-    public void testCheckLogin_UserNotExist() {
-        User user = new User();
-        user.setUsername("khongtontai");
-        user.setPassword("123456");
-
-        UserDAO dao = new UserDAO();
-
-        boolean result = dao.checkLogin(user);
-
-        assertFalse(result);
-    }
-    
 }

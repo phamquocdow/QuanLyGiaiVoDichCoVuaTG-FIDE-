@@ -7,12 +7,9 @@ public class Result {
     private Player player;
     private Match match;
 
-    public Result() {
-    }
-
     public Result(int ID, float score, float eloChange, Player player, Match match) {
         this.ID = ID;
-        this.score = score;
+        setScore(score);
         this.eloChange = eloChange;
         this.player = player;
         this.match = match;
@@ -22,20 +19,15 @@ public class Result {
         return ID;
     }
 
-    public void setID(int ID) {
-        this.ID = ID;
-    }
-
     public float getScore() {
         return score;
     }
 
     public void setScore(float score) {
         if (score != 0.0f && score != 0.5f && score != 1.0f) {
-        throw new IllegalArgumentException(
-            "Score chỉ được phép là 0, 0.5 hoặc 1"
-        );
-    }
+            throw new IllegalArgumentException(
+                    "Score chỉ được phép là 0, 0.5 hoặc 1");
+        }
         this.score = score;
     }
 
@@ -51,17 +43,8 @@ public class Result {
         return player;
     }
 
-    public void setPlayer(Player player) {
-        this.player = player;
-    }
-
     public Match getMatch() {
         return match;
     }
 
-    public void setMatch(Match match) {
-        this.match = match;
-    }
-    
-    
 }

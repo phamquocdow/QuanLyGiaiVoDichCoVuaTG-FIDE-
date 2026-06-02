@@ -15,20 +15,11 @@ public class User {
         this.password = password;
     }
 
-    public User(int id, String username, String password, String fullname, Date birthDate, String role) {
-        this.id = id;
-        this.username = username;
-        this.password = password;
-        this.fullname = fullname;
-        this.birthDate = birthDate;
-        this.role = role;
-    }
-
-    public int getId() {
+    public int getID() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setID(int id) {
         this.id = id;
     }
 

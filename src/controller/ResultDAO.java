@@ -10,35 +10,25 @@ import model.Result;
 public class ResultDAO extends DAO {
 
     public ResultDAO() {
+        super();
     }
 
     public ArrayList<Result> getResultMatch(Match match) {
         ArrayList<Result> results = new ArrayList<Result>();
         try {
-
+            PlayerDAO playerDAO = new PlayerDAO();
             PreparedStatement ps = con.prepareStatement("SELECT * FROM tblResult WHERE tblMatchID = ? ORDER BY ID");
             ps.setInt(1, match.getID());
+
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
-                Result result = new Result();
-                PreparedStatement ps1 = con.prepareStatement("SELECT * FROM tblPlayer WHERE ID = ?");
-                ps1.setInt(1, rs.getInt("tblPlayerID"));
-                ResultSet rs1 = ps1.executeQuery();
-                if (rs1.next()) {
-                    Player player = new Player(
-                            rs1.getInt("ID"),
-                            rs1.getString("fideID"),
-                            rs1.getString("name"),
-                            rs1.getInt("bornYear"),
-                            rs1.getString("nation"),
-                            rs1.getFloat("eloRating"),
-                            rs1.getString("note"));
-                    result.setPlayer(player);
-                }
-                result.setID(rs.getInt("ID"));
-                result.setMatch(match);
-                result.setEloChange(rs.getFloat("eloChange"));
-                result.setScore(rs.getFloat("score"));
+                Player player = playerDAO.searchPlayer(rs.getInt("tblPlayerID"));
+                Result result = new Result(
+                        rs.getInt("ID"),
+                        rs.getFloat("score"),
+                        rs.getFloat("eloChange"),
+                        player,
+                        match);
                 results.add(result);
             }
         } catch (Exception e) {
