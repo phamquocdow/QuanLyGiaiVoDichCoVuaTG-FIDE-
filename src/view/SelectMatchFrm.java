@@ -1,0 +1,165 @@
+
+package view;
+
+import dao.MatchDAO;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+import java.util.ArrayList;
+import model.Match;
+import model.Round;
+import model.User;
+import javax.swing.table.DefaultTableModel;
+
+
+public class SelectMatchFrm extends javax.swing.JFrame implements MouseListener {
+
+    private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(SelectMatchFrm.class.getName());
+
+    
+    private User user;
+    private Round round;
+    private ArrayList<Match> matches = new ArrayList<Match>();
+
+    public SelectMatchFrm(User user, Round round) {
+        initComponents();
+        
+        
+        
+        this.user = user;
+        this.round = round;
+        userName.setText(user.getFullName());
+        selectedRound.setText("Round " + round.getRoundNum());
+        MatchDAO matchDAO = new MatchDAO();
+        matches = matchDAO.getMatchRound(round);
+        String data[][] = new String[matches.size()][1];
+        for (int i = 0; i < matches.size(); i++) {
+            Match match = matches.get(i);
+            data[i][0] = match.getName();
+        }
+        String[] columns = {"Select Match"};
+        DefaultTableModel dtm = new DefaultTableModel(data, columns);
+        tblListMatch.setModel(dtm);
+        tblListMatch.addMouseListener(this);
+    }
+
+    
+    @SuppressWarnings("unchecked")
+    
+    private void initComponents() {
+
+        userName = new javax.swing.JLabel();
+        selectedRound = new javax.swing.JLabel();
+        jLabel1 = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        tblListMatch = new javax.swing.JTable();
+        btnBack = new javax.swing.JButton();
+
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
+        userName.setText("user's name");
+
+        selectedRound.setText("Selected  round");
+
+        jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 24)); 
+        jLabel1.setText("Select Match");
+
+        tblListMatch.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null}
+            },
+            new String [] {
+                "Select Match"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.String.class
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+        });
+        jScrollPane1.setViewportView(tblListMatch);
+        
+        btnBack.setText("Back");
+        btnBack.addActionListener(e -> {
+            new SelectRoundFrm(user, "update").setVisible(true);
+            this.dispose();
+        });
+
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+        getContentPane().setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(16, 16, 16)
+                .addComponent(userName, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(selectedRound)
+                .addGap(18, 18, 18))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(76, 76, 76)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btnBack)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)))
+                .addContainerGap(91, Short.MAX_VALUE))
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(17, 17, 17)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(userName)
+                    .addComponent(selectedRound))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 178, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(btnBack)
+                .addContainerGap(29, Short.MAX_VALUE))
+        );
+
+        pack();
+    }
+
+    
+
+    
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JLabel selectedRound;
+    private javax.swing.JTable tblListMatch;
+    private javax.swing.JLabel userName;
+    private javax.swing.JButton btnBack;
+    
+
+    @Override
+    public void mouseClicked(MouseEvent e) {
+        int row = tblListMatch.rowAtPoint(e.getPoint());
+        if (row >= 0) {
+            (new UpdateResultFrm(user, matches.get(row))).setVisible(true);
+            this.dispose();
+        }
+    }
+
+    @Override
+    public void mousePressed(MouseEvent e) {
+    }
+
+    @Override
+    public void mouseReleased(MouseEvent e) {
+    }
+
+    @Override
+    public void mouseEntered(MouseEvent e) {
+    }
+
+    @Override
+    public void mouseExited(MouseEvent e) {
+    }
+
+}
