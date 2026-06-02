@@ -23,7 +23,7 @@ public class PlayerDAO extends DAO {
                 Player player = new Player(
                     rs.getInt("ID"),
                     rs.getString("name"),
-                    rs.getInt("birthYear"),
+                    rs.getInt("bornYear"),
                     rs.getString("nation"),
                     rs.getFloat("eloRating"),
                     rs.getString("note")
@@ -53,11 +53,11 @@ public class PlayerDAO extends DAO {
     public boolean insertPlayer(Player player) {
         try {
             PreparedStatement ps = con.prepareStatement(
-                "INSERT INTO tblPlayer(name, birthYear, nation, eloRating, note) VALUES (?, ?, ?, ?, ?)",
+                "INSERT INTO tblPlayer(name, bornYear, nation, eloRating, note) VALUES (?, ?, ?, ?, ?)",
                 Statement.RETURN_GENERATED_KEYS
             );
             ps.setString(1, player.getName());
-            ps.setInt(2, player.getBirthYear());
+            ps.setInt(2, player.getBornYear());
             ps.setString(3, player.getNation());
             ps.setFloat(4, player.getEloRating());
             ps.setString(5, player.getNote());
@@ -83,11 +83,11 @@ public class PlayerDAO extends DAO {
             int nextId = getNextPlayerId();
             player.setID(nextId);
             PreparedStatement ps = con.prepareStatement(
-                "INSERT INTO tblPlayer(ID, name, birthYear, nation, eloRating, note) VALUES (?, ?, ?, ?, ?, ?)"
+                "INSERT INTO tblPlayer(ID, name, bornYear, nation, eloRating, note) VALUES (?, ?, ?, ?, ?, ?)"
             );
             ps.setInt(1, player.getID());
             ps.setString(2, player.getName());
-            ps.setInt(3, player.getBirthYear());
+            ps.setInt(3, player.getBornYear());
             ps.setString(4, player.getNation());
             ps.setFloat(5, player.getEloRating());
             ps.setString(6, player.getNote());

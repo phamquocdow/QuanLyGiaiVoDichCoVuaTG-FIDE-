@@ -38,7 +38,7 @@ public class ManagePlayerFrm extends JFrame implements ActionListener {
             model.addRow(new Object[] {
                 player.getID(),
                 player.getName(),
-                player.getBirthYear(),
+                player.getBornYear(),
                 player.getNation(),
                 player.getEloRating(),
                 player.getNote()
@@ -63,7 +63,7 @@ public class ManagePlayerFrm extends JFrame implements ActionListener {
 
         tblPlayers.setModel(new DefaultTableModel(
             new Object [][] {},
-            new String [] {"ID", "Name", "Birth Year", "Nation", "Elo", "Note"}
+            new String [] {"ID", "Name", "Born Year", "Nation", "Elo", "Note"}
         ) {
             @Override
             public boolean isCellEditable(int row, int column) {
@@ -158,11 +158,11 @@ public class ManagePlayerFrm extends JFrame implements ActionListener {
             if (name == null || name.trim().isEmpty()) {
                 return;
             }
-            String birthYearText = JOptionPane.showInputDialog(this, "Birth Year:", "Add Player", JOptionPane.PLAIN_MESSAGE);
-            if (birthYearText == null || birthYearText.trim().isEmpty()) {
+            String bornYearText = JOptionPane.showInputDialog(this, "Born Year:", "Add Player", JOptionPane.PLAIN_MESSAGE);
+            if (bornYearText == null || bornYearText.trim().isEmpty()) {
                 return;
             }
-            int birthYear = Integer.parseInt(birthYearText.trim());
+            int bornYear = Integer.parseInt(bornYearText.trim());
             String nation = JOptionPane.showInputDialog(this, "Nation:", "Add Player", JOptionPane.PLAIN_MESSAGE);
             if (nation == null) {
                 nation = "";
@@ -172,7 +172,7 @@ public class ManagePlayerFrm extends JFrame implements ActionListener {
             String note = JOptionPane.showInputDialog(this, "Note:", "");
             Player player = new Player();
             player.setName(name.trim());
-            player.setBirthYear(birthYear);
+            player.setBornYear(bornYear);
             player.setNation(nation.trim());
             player.setEloRating(elo);
             player.setNote(note == null ? "" : note.trim());

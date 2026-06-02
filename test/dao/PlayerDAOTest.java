@@ -2,16 +2,16 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/UnitTests/JUnit4TestClass.java to edit this template
  */
-package controller;
+package dao;
 
-import model.User;
+import model.Player;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import dao.UserDAO;
+import dao.PlayerDAO;
 
 import static org.junit.Assert.*;
 
@@ -19,9 +19,9 @@ import static org.junit.Assert.*;
  *
  * @author MSI PC
  */
-public class UserDAOTest {
+public class PlayerDAOTest {
     
-    public UserDAOTest() {
+    public PlayerDAOTest() {
     }
     
     @BeforeClass
@@ -41,15 +41,16 @@ public class UserDAOTest {
     }
 
     /**
-     * Test of checkLogin method, of class UserDAO.
+     * Test of updateElo method, of class PlayerDAO.
      */
     @Test
-    public void testCheckLogin() {
-        System.out.println("checkLogin");
-        User user = null;
-        UserDAO instance = new UserDAO();
+    public void testUpdateElo() {
+        System.out.println("updateElo");
+        Player player = null;
+        float elo = 0.0F;
+        PlayerDAO instance = new PlayerDAO();
         boolean expResult = false;
-        boolean result = instance.checkLogin(user);
+        boolean result = instance.updateElo(player, elo);
         assertEquals(expResult, result);
         // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
