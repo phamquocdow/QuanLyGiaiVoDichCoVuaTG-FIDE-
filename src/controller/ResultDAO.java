@@ -25,7 +25,10 @@ public class ResultDAO extends DAO {
                 ps1.setInt(1, rs.getInt("tblPlayerID"));
                 ResultSet rs1 = ps1.executeQuery();
                 if (rs1.next()) {
-                    Player player = new Player(rs1.getInt("ID"), rs1.getString("name"), rs1.getInt("birthYear"), rs1.getString("nation"), rs1.getFloat("eloRating"), rs1.getString("note"));
+                    Player player = new Player();
+                    player.setID(rs1.getInt("ID"));
+                    player.setEloRating(rs1.getFloat("eloRating"));
+                    player.setName("name");
                     result.setPlayer(player);
                 }
                 result.setID(rs.getInt("ID"));
