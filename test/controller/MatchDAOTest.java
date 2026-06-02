@@ -31,7 +31,7 @@ public class MatchDAOTest {
         RoundDAO roundDAO = new RoundDAO();
         MatchDAO matchDAO = new MatchDAO();
 
-        Round round = roundDAO.getRoundList().get(0);
+        Round round = roundDAO.getRoundList((new TournamentDAO()).getTournamentLatest()).get(0);
 
         ArrayList<Match> result = matchDAO.getMatchRound(round);
 

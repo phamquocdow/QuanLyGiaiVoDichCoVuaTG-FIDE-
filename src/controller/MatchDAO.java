@@ -36,6 +36,7 @@ public class MatchDAO extends DAO {
             }
             
         } catch (Exception e) {
+            e.printStackTrace();
         }
         return matches;
     }

@@ -6,6 +6,7 @@ package controller;
 
 import java.util.ArrayList;
 import model.Round;
+import model.Tournament;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
@@ -27,9 +28,22 @@ public class RoundDAOTest {
 
         RoundDAO instance = new RoundDAO();
 
-        ArrayList<Round> result = instance.getRoundList();
+        ArrayList<Round> result = instance.getRoundList((new TournamentDAO()).getTournamentLatest());
 
-        assertNotNull(result);
+        assertNotEquals(0, result.size());
     }
 
+    @Test
+    public void testGetRoundList_NoData() {
+        System.out.println("getRoundList");
+
+        RoundDAO instance = new RoundDAO();
+
+        Tournament tournament = new Tournament();
+        tournament.setID(0);
+
+        ArrayList<Round> result = instance.getRoundList(tournament);
+
+        assertEquals(0, result.size());
+    }
 }

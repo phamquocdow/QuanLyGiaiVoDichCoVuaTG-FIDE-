@@ -5,7 +5,7 @@ import java.util.Date;
 public class Player {
     private int ID;
     private String name;
-    private int birthYear;
+    private int bornYear;
     private String nation;
     private float eloRating;
     private String note;
@@ -13,10 +13,10 @@ public class Player {
     public Player() {
     }
 
-    public Player(int ID, String name, int birthYear, String nation, float eloRating, String note) {
+    public Player(int ID, String name, int bornYear, String nation, float eloRating, String note) {
         this.ID = ID;
         this.name = name;
-        this.birthYear = birthYear;
+        this.bornYear = bornYear;
         this.nation = nation;
         this.eloRating = eloRating;
         this.note = note;
@@ -38,12 +38,12 @@ public class Player {
         this.name = name;
     }
 
-    public int getBirthYear() {
-        return birthYear;
+    public int getBornYear() {
+        return bornYear;
     }
 
-    public void setBirthYear(int birthYear) {
-        this.birthYear = birthYear;
+    public void setBornYear(int bornYear) {
+        this.bornYear = bornYear;
     }
 
     public String getNation() {

@@ -5,15 +5,17 @@ import model.Round;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import model.Match;
+import model.Tournament;
 
 public class RoundDAO extends DAO{
     public RoundDAO(){
     }
     
-    public ArrayList<Round> getRoundList(){
+    public ArrayList<Round> getRoundList(Tournament tournament){
         ArrayList<Round> rounds = new ArrayList<Round>();
         try {
-            PreparedStatement ps = con.prepareStatement("SELECT * FROM tblRound");
+            PreparedStatement ps = con.prepareStatement("SELECT * FROM tblRound WHERE tblTournamentID = ?");
+            ps.setInt(1, tournament.getID());
             ResultSet rs = ps.executeQuery();
             while (rs.next()){
                 Round round = new Round();

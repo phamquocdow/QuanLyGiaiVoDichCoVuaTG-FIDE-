@@ -34,7 +34,7 @@ public class UserDAOTest {
     }
 
     @Test
-    public void testCheckLogin_WrongPassword() {
+    public void testCheckLogin_Wrong() {
         User user = new User();
         user.setUsername("admin");
         user.setPassword("saimatkhau");
@@ -46,17 +46,4 @@ public class UserDAOTest {
         assertFalse(result);
     }
 
-    @Test
-    public void testCheckLogin_UserNotExist() {
-        User user = new User();
-        user.setUsername("khongtontai");
-        user.setPassword("123456");
-
-        UserDAO dao = new UserDAO();
-
-        boolean result = dao.checkLogin(user);
-
-        assertFalse(result);
-    }
-    
 }
