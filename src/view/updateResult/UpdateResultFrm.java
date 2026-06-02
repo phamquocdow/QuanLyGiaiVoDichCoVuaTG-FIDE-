@@ -10,6 +10,7 @@ import model.Match;
 import model.Player;
 import model.Result;
 import model.User;
+import view.SelectRoundFrm;
 
 public class UpdateResultFrm extends javax.swing.JFrame {
 
@@ -175,7 +176,7 @@ public class UpdateResultFrm extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelActionPerformed
-       (new SelectRoundFrm(user)).setVisible(true);
+       (new SelectRoundFrm(user, "update")).setVisible(true);
        this.dispose();
     }//GEN-LAST:event_btnCancelActionPerformed
 
@@ -193,7 +194,7 @@ public class UpdateResultFrm extends javax.swing.JFrame {
             } else {
                 JOptionPane.showMessageDialog(this, "Cập nhật thất bại");
             }
-            (new SelectRoundFrm(user)).setVisible(true);
+            (new SelectRoundFrm(user, "update")).setVisible(true);
         } catch (Exception ex) {
             ex.printStackTrace();
         }

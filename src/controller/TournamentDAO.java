@@ -38,7 +38,7 @@ public class TournamentDAO extends DAO {
     }
 
     public Tournament getTournamentLatest() {
-        String sql = "SELECT * FROM tblTournament ORDER BY year DESC";
+        String sql = "SELECT TOP 1 * FROM tblTournament ORDER BY year DESC, ID DESC";
 
         try {
             PreparedStatement ps = con.prepareStatement(sql);
@@ -63,5 +63,21 @@ public class TournamentDAO extends DAO {
             e.printStackTrace();
         }
         return null;
+    }
+
+    public int getLatestTournamentID() {
+        try {
+             PreparedStatement ps = con.prepareStatement("SELECT TOP 1 ID FROM tblTournament ORDER BY year DESC, ID DESC");
+            ResultSet rs = ps.executeQuery();
+            if (!rs.next())
+                return -1;
+            int latestTournamentID = rs.getInt("ID");
+            rs.close();
+            ps.close();
+            return latestTournamentID;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return -1;
     }
 }

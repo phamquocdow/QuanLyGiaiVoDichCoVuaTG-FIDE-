@@ -1,7 +1,6 @@
-package view.updateResult;
+package view;
 
 import controller.MatchDAO;
-import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.ArrayList;
@@ -9,6 +8,7 @@ import model.Match;
 import model.Round;
 import model.User;
 import javax.swing.table.DefaultTableModel;
+import view.updateResult.UpdateResultFrm;
 
 public class SelectMatchFrm extends javax.swing.JFrame implements MouseListener {
 
@@ -17,6 +17,7 @@ public class SelectMatchFrm extends javax.swing.JFrame implements MouseListener 
     private User user;
     private Round round;
     private ArrayList<Match> matches = new ArrayList<Match>();
+    
 
     public SelectMatchFrm(User user, Round round) {
         initComponents();
@@ -129,7 +130,7 @@ public class SelectMatchFrm extends javax.swing.JFrame implements MouseListener 
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnReturnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReturnActionPerformed
-       (new SelectRoundFrm(user)).setVisible(true);
+       (new SelectRoundFrm(user, "update")).setVisible(true);
        this.dispose();
     }//GEN-LAST:event_btnReturnActionPerformed
 

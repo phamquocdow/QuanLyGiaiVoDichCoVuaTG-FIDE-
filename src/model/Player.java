@@ -9,6 +9,9 @@ public class Player {
     private float eloRating;
     private String note;
 
+    public Player() {
+    }
+
     public Player(int id, String fideID, String name, int bornYear, String nation, float eloRating, String note) {
         this.id = id;
         this.fideID = fideID;

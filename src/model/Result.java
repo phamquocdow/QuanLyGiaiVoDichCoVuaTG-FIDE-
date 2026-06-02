@@ -7,6 +7,13 @@ public class Result {
     private Player player;
     private Match match;
 
+    public Result(Match match, Player player, float score, float eloChange) {
+        this.match = match;
+        this.player = player;
+        setScore(score);
+        this.eloChange = eloChange;
+    }
+
     public Result(int ID, float score, float eloChange, Player player, Match match) {
         this.ID = ID;
         setScore(score);
@@ -17,6 +24,10 @@ public class Result {
 
     public int getID() {
         return ID;
+    }
+
+    public void setID(int ID) {
+        this.ID = ID;
     }
 
     public float getScore() {
