@@ -1,0 +1,13 @@
+# Thư mục build và file biên dịch (.class)
+build/
+dist/
+*.class
+
+# Cài đặt cá nhân của NetBeans
+nbproject/private/
+nbproject/projectui.properties
+
+# Các file tạm thời hoặc file log
+*.log
+*.tmp
+.DS_Store
