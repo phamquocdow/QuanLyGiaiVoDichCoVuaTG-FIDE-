@@ -4,28 +4,29 @@ import model.User;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
-public class UserDAO extends DAO{
-    public UserDAO(){
+public class UserDAO extends DAO {
+    public UserDAO() {
+        super();
     }
-    
-    public boolean checkLogin(User user){
+
+    public boolean checkLogin(User user) {
+        boolean result = false;
+        String sql = "SELECT * FROM tblUser WHERE username = ? AND password = ?";
         try {
-            PreparedStatement ps = con.prepareStatement("SELECT * FROM tblUser WHERE username = ? AND password = ?");
+            PreparedStatement ps = con.prepareStatement(sql);
             ps.setString(1, user.getUsername());
             ps.setString(2, user.getPassword());
             ResultSet rs = ps.executeQuery();
-            if (rs.next()){
-                user.setFullName(rs.getString("fullName"));
-                user.setID(rs.getInt("ID"));
+            if (rs.next()) {
+                user.setId(rs.getInt("ID"));
+                user.setFullname(rs.getString("fullname"));
                 user.setBirthDate(rs.getDate("birthDate"));
                 user.setRole(rs.getString("role"));
-                return true;
+                result = true;
             }
-            return false;
-        } catch (Exception ex) {
-            ex.printStackTrace();
-            return false;
+        } catch (Exception e) {
+            e.printStackTrace();
         }
+        return result;
     }
-    
 }

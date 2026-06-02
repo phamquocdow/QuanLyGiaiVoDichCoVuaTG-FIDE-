@@ -1,35 +1,35 @@
 package model;
 
-import java.time.LocalDate;
 import java.util.Date;
 
 public class User {
-    private int ID;
+    private int id;
     private String username;
     private String password;
-    private String fullName;
+    private String fullname;
     private Date birthDate;
     private String role;
-    
-    public User(){
-        
-    }
 
-    public User(int ID, String username, String password, String fullName, Date birthDate, String role) {
-        this.ID = ID;
+    public User(String username, String password) {
         this.username = username;
         this.password = password;
-        this.fullName = fullName;
+    }
+
+    public User(int id, String username, String password, String fullname, Date birthDate, String role) {
+        this.id = id;
+        this.username = username;
+        this.password = password;
+        this.fullname = fullname;
         this.birthDate = birthDate;
         this.role = role;
     }
 
-    public int getID() {
-        return ID;
+    public int getId() {
+        return id;
     }
 
-    public void setID(int ID) {
-        this.ID = ID;
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getUsername() {
@@ -48,12 +48,12 @@ public class User {
         this.password = password;
     }
 
-    public String getFullName() {
-        return fullName;
+    public String getFullname() {
+        return fullname;
     }
 
-    public void setFullName(String fullName) {
-        this.fullName = fullName;
+    public void setFullname(String fullname) {
+        this.fullname = fullname;
     }
 
     public Date getBirthDate() {
@@ -72,5 +72,4 @@ public class User {
         this.role = role;
     }
 
-    
 }

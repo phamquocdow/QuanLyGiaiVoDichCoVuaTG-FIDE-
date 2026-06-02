@@ -1,33 +1,38 @@
 package model;
 
-import java.util.Date;
-
 public class Player {
-    private int ID;
+    private int id;
+    private String fideID;
     private String name;
-    private int birthYear;
+    private int bornYear;
     private String nation;
     private float eloRating;
     private String note;
 
-    public Player() {
-    }
-
-    public Player(int ID, String name, int birthYear, String nation, float eloRating, String note) {
-        this.ID = ID;
+    public Player(int id, String fideID, String name, int bornYear, String nation, float eloRating, String note) {
+        this.id = id;
+        this.fideID = fideID;
         this.name = name;
-        this.birthYear = birthYear;
+        this.bornYear = bornYear;
         this.nation = nation;
         this.eloRating = eloRating;
         this.note = note;
     }
 
-    public int getID() {
-        return ID;
+    public int getId() {
+        return id;
     }
 
-    public void setID(int ID) {
-        this.ID = ID;
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public String getFideID() {
+        return fideID;
+    }
+
+    public void setFideID(String fideID) {
+        this.fideID = fideID;
     }
 
     public String getName() {
@@ -38,12 +43,12 @@ public class Player {
         this.name = name;
     }
 
-    public int getBirthYear() {
-        return birthYear;
+    public int getBornYear() {
+        return bornYear;
     }
 
-    public void setBirthYear(int birthYear) {
-        this.birthYear = birthYear;
+    public void setBornYear(int bornYear) {
+        this.bornYear = bornYear;
     }
 
     public String getNation() {
@@ -73,6 +78,5 @@ public class Player {
     public void setNote(String note) {
         this.note = note;
     }
-    
-    
+
 }
