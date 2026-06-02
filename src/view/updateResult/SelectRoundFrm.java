@@ -22,7 +22,7 @@ public class SelectRoundFrm extends javax.swing.JFrame implements MouseListener 
         this.user = user;
         userName.setText(user.getFullname());
         RoundDAO roundDAO = new RoundDAO();
-        listRound = roundDAO.getRoundList((new TournamentDAO()).getTournamentLatest());
+        listRound = roundDAO.getRoundList((new TournamentDAO()).getTournamentLatest().getID());
         String data[][] = new String[listRound.size()][1];
         for (int i = 0; i < listRound.size(); i++) {
             Round r = listRound.get(i);
