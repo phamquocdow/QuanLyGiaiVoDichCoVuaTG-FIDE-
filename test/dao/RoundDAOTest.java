@@ -12,7 +12,7 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import dao.RoundDAO;
+import controller.RoundDAO;
 
 import static org.junit.Assert.*;
 
@@ -56,3 +56,4 @@ public class RoundDAOTest {
     }
     
 }
+

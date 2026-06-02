@@ -13,7 +13,7 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import dao.MatchDAO;
+import controller.MatchDAO;
 
 import static org.junit.Assert.*;
 
@@ -58,3 +58,4 @@ public class MatchDAOTest {
     }
     
 }
+

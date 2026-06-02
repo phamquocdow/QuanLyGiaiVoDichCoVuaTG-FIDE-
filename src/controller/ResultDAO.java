@@ -1,5 +1,5 @@
 
-package dao;
+package controller;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -240,3 +240,5 @@ public ArrayList<Standing> getRoundStandings(Round round) {
         return playersWithBye;
     }
 }
+
+

@@ -1,7 +1,7 @@
 
 package view;
 
-import dao.MatchDAO;
+import controller.MatchDAO;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
@@ -163,3 +163,4 @@ public class SelectMatchFrm extends javax.swing.JFrame implements MouseListener 
     }
 
 }
+

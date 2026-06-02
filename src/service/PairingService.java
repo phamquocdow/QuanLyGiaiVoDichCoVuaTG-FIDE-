@@ -1,7 +1,8 @@
 package service;
 
-import dao.MatchDAO;
-import dao.ResultDAO;
+import controller.DAO;
+import controller.MatchDAO;
+import controller.ResultDAO;
 import java.util.ArrayList;
 import java.util.HashSet;
 import model.Match;
@@ -149,7 +150,7 @@ public class PairingService {
         ResultDAO resultDAO = new ResultDAO();
 
         try {
-            dao.DAO.con.setAutoCommit(false);
+            DAO.con.setAutoCommit(false);
 
             for (PairingRow pairing : pairingRows) {
                 Match match = new Match();
@@ -159,7 +160,7 @@ public class PairingService {
                     match.setName(pairing.getPlayer1().getName() + " vs " + pairing.getPlayer2().getName());
                     int matchId = matchDAO.insertMatch(match, round);
                     if (matchId <= 0) {
-                        dao.DAO.con.rollback();
+                        DAO.con.rollback();
                         return false;
                     }
                     pairing.setMatch(match);
@@ -178,14 +179,14 @@ public class PairingService {
                     result2.setEloChange(0f);
 
                     if (!resultDAO.insertResult(result1) || !resultDAO.insertResult(result2)) {
-                        dao.DAO.con.rollback();
+                        DAO.con.rollback();
                         return false;
                     }
                 } else {
                     match.setName(pairing.getPlayer1().getName() + " (BYE)");
                     int matchId = matchDAO.insertMatch(match, round);
                     if (matchId <= 0) {
-                        dao.DAO.con.rollback();
+                        DAO.con.rollback();
                         return false;
                     }
                     pairing.setMatch(match);
@@ -198,17 +199,17 @@ public class PairingService {
                     result1.setEloChange(0f);
 
                     if (!resultDAO.insertResult(result1)) {
-                        dao.DAO.con.rollback();
+                        DAO.con.rollback();
                         return false;
                     }
                 }
             }
 
-            dao.DAO.con.commit();
+            DAO.con.commit();
             return true;
         } catch (Exception e) {
             try {
-                dao.DAO.con.rollback();
+                DAO.con.rollback();
             } catch (Exception ex) {
                 ex.printStackTrace();
             }
@@ -216,7 +217,7 @@ public class PairingService {
             return false;
         } finally {
             try {
-                dao.DAO.con.setAutoCommit(true);
+                DAO.con.setAutoCommit(true);
             } catch (Exception ex) {
                 ex.printStackTrace();
             }

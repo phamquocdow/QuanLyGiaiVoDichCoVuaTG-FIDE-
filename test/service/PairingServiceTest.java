@@ -1,6 +1,6 @@
 package service;
 
-import dao.DAO;
+import controller.DAO;
 import java.sql.PreparedStatement;
 import java.util.ArrayList;
 import model.Player;
@@ -81,7 +81,7 @@ public class PairingServiceTest {
     public void testCreatePairings_AvoidDuplicate() {
         try {
             // Đảm bảo Connection đã khởi tạo
-            new dao.ResultDAO();
+            new controller.ResultDAO();
             DAO.con.setAutoCommit(false);
             
             // Xóa dữ liệu cũ để đảm bảo kết quả chính xác
@@ -136,7 +136,7 @@ public class PairingServiceTest {
     @Test
     public void testCreatePairings_AvoidDoubleBye() {
         try {
-            new dao.ResultDAO();
+            new controller.ResultDAO();
             DAO.con.setAutoCommit(false);
             
             // Xóa dữ liệu cũ
@@ -234,3 +234,4 @@ public class PairingServiceTest {
         Assert.assertFalse("Truyền list rỗng phải trả về false", result2);
     }
 }
+

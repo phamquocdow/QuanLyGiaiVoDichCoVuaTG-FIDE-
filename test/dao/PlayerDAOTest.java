@@ -11,7 +11,7 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import dao.PlayerDAO;
+import controller.PlayerDAO;
 
 import static org.junit.Assert.*;
 
@@ -57,3 +57,4 @@ public class PlayerDAOTest {
     }
     
 }
+

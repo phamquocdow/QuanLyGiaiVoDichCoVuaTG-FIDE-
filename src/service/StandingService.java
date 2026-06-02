@@ -1,7 +1,7 @@
 package service;
 
-import dao.PlayerDAO;
-import dao.ResultDAO;
+import controller.PlayerDAO;
+import controller.ResultDAO;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;

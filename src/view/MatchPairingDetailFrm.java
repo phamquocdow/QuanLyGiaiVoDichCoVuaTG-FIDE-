@@ -1,6 +1,6 @@
 package view;
 
-import dao.RoundDAO;
+import controller.RoundDAO;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
@@ -310,3 +310,4 @@ public class MatchPairingDetailFrm extends javax.swing.JFrame implements ActionL
     private javax.swing.JScrollPane standingList;
     
 }
+

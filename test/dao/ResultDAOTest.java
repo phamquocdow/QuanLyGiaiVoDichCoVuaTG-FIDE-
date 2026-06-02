@@ -1,5 +1,7 @@
 package dao;
 
+import controller.DAO;
+import controller.ResultDAO;
 import java.sql.PreparedStatement;
 import java.util.HashSet;
 import org.junit.Assert;
@@ -12,7 +14,7 @@ public class ResultDaoTest {
 
     @Before
     public void setUp() {
-        // Khởi tạo DAO (đồng thời khởi tạo kết nối CSDL trong constructor dao.DAO)
+        // Khởi tạo DAO (đồng thời khởi tạo kết nối CSDL trong constructor controller.DAO)
         resultDAO = new ResultDAO(); 
     }
 

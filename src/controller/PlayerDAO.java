@@ -1,5 +1,5 @@
 
-package dao;
+package controller;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -112,3 +112,5 @@ public class PlayerDAO extends DAO {
         return -1;
     }
 }
+
+

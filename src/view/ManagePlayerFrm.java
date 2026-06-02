@@ -1,6 +1,6 @@
 package view;
 
-import dao.PlayerDAO;
+import controller.PlayerDAO;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
@@ -210,3 +210,4 @@ public class ManagePlayerFrm extends JFrame implements ActionListener {
         }
     }
 }
+

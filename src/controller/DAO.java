@@ -1,5 +1,5 @@
 
-package dao;
+package controller;
 
 
 import java.sql.Connection;
@@ -25,3 +25,5 @@ public class DAO {
         }
     }
 }
+
+

@@ -1,5 +1,5 @@
 
-package dao;
+package controller;
 
 import model.User;
 import java.sql.PreparedStatement;
@@ -31,3 +31,5 @@ public class UserDAO extends DAO{
     }
     
 }
+
+
