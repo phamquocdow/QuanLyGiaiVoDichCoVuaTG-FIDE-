@@ -78,5 +78,4 @@ public class Player {
     public void setNote(String note) {
         this.note = note;
     }
-
 }

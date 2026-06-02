@@ -8,7 +8,6 @@ public class UserDAO extends DAO {
     public UserDAO() {
         super();
     }
-
     public boolean checkLogin(User user) {
         boolean result = false;
         String sql = "SELECT * FROM tblUser WHERE username = ? AND password = ?";

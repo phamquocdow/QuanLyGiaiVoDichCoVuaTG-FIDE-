@@ -140,10 +140,11 @@ public class LoginFrm extends javax.swing.JFrame implements ActionListener {
         if (new UserDAO().checkLogin(user)) {
             System.out.printf(user.getFullname());
             if (user.getRole().equals("Manager")) {
+                (new ManagerHomeFrm(user)).setVisible(true);
             } else if (user.getRole().equals("Organizer")) {
                 (new OrganizerHomeFrm(user)).setVisible(true);
-                this.dispose();
             }
+            this.dispose();
         } else {
             javax.swing.JOptionPane.showMessageDialog(this, "Sai tên đăng nhập hoặc mật khẩu");
         }
