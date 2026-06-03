@@ -4,7 +4,6 @@ import service.StandingService;
 import model.Round;
 import model.Standing;
 import model.User;
-import view.viewLeaderboad.SelectRoundFrm;
 import java.awt.Color;
 import java.awt.Font;
 import java.util.ArrayList;
@@ -79,7 +78,7 @@ public class RankingTableFrm extends javax.swing.JFrame {
         btnBack.setBorder(BorderFactory.createLineBorder(new Color(160, 160, 160), 1, true));
         btnBack.setText("Quay lại Chọn Vòng");
         btnBack.addActionListener(e -> {
-            new SelectRoundFrm(user).setVisible(true);
+            new SelectRoundFrm(user, "ranking").setVisible(true);
             dispose();
         });
 
