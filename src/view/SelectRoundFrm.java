@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import model.Round;
 import model.User;
 import view.pairing.MatchPairingDetailFrm;
+import view.leaderboard.RankingTableFrm;
 
 import javax.swing.table.DefaultTableModel;
 
@@ -137,8 +138,8 @@ public class SelectRoundFrm extends javax.swing.JFrame implements MouseListener 
             Round selectedRound = listRound.get(row);
             if ("pairing".equals(mode)) {
                 new MatchPairingDetailFrm(user, selectedRound).setVisible(true);
-            // } else if ("ranking".equals(mode)) {
-            //     new RankingsFrm(user, selectedRound).setVisible(true);
+            } else if ("ranking".equals(mode)) {
+                new RankingTableFrm(user, selectedRound).setVisible(true);
             } else {
                 new SelectMatchFrm(user, selectedRound).setVisible(true);
             }
