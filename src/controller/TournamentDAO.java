@@ -153,94 +153,6 @@ public class TournamentDAO extends DAO {
         return rounds;
     }
 
-    public List<PlayerRecord> getRankingForRound(int roundNum) {
-        int latestTournamentID = getLatestTournamentID();
-        Map<Integer, PlayerRecord> recordMap = new HashMap<>();
-
-        String sqlPoints = "SELECT p.ID, p.name, p.bornYear, p.nation, p.eloRating, " +
-                "       COALESCE(SUM(res.score), 0)     AS totalPoints, " +
-                "       COALESCE(SUM(res.eloChange), 0) AS totalEloChange " +
-                "FROM tblPlayer p " +
-                "JOIN tblParticipationForm pf ON pf.tblPlayerID = p.ID " +
-                "     AND pf.tblTournamentID = ? " +
-                "LEFT JOIN tblResult res ON res.tblPlayerID = p.ID " +
-                "LEFT JOIN tblMatch m    ON m.ID = res.tblMatchID " +
-                "LEFT JOIN tblRound rnd  ON rnd.ID = m.tblRoundID " +
-                "     AND rnd.tblTournamentID = ? " +
-                "     AND rnd.roundNum <= ? " +
-                "GROUP BY p.ID, p.name, p.bornYear, p.nation, p.eloRating";
-
-        try (PreparedStatement ps = con.prepareStatement(sqlPoints)) {
-            ps.setInt(1, latestTournamentID);
-            ps.setInt(2, latestTournamentID);
-            ps.setInt(3, roundNum);
-            ResultSet rs = ps.executeQuery();
-            while (rs.next()) {
-                double baseElo = rs.getDouble("eloRating");
-                double eloChange = rs.getDouble("totalEloChange");
-                int currentElo = (int) Math.round(baseElo + eloChange);
-
-                PlayerRecord pr = new PlayerRecord(
-                        rs.getInt("ID"),
-                        rs.getString("name"),
-                        rs.getInt("bornYear"),
-                        rs.getString("nation"),
-                        rs.getDouble("totalPoints"),
-                        0.0,
-                        currentElo);
-                recordMap.put(pr.id, pr);
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-        String sqlMatchPlayers = "SELECT res.tblMatchID, res.tblPlayerID " +
-                "FROM tblResult res " +
-                "JOIN tblMatch m   ON m.ID = res.tblMatchID " +
-                "JOIN tblRound rnd ON rnd.ID = m.tblRoundID " +
-                "WHERE rnd.tblTournamentID = ? " +
-                "  AND rnd.roundNum <= ?";
-
-        Map<Integer, List<Integer>> matchPlayers = new HashMap<>();
-        try (PreparedStatement ps = con.prepareStatement(sqlMatchPlayers)) {
-            ps.setInt(1, latestTournamentID);
-            ps.setInt(2, roundNum);
-            ResultSet rs = ps.executeQuery();
-            while (rs.next()) {
-                int matchId = rs.getInt("tblMatchID");
-                int playerId = rs.getInt("tblPlayerID");
-                matchPlayers.computeIfAbsent(matchId, k -> new ArrayList<>()).add(playerId);
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-        for (List<Integer> players : matchPlayers.values()) {
-            for (int pid : players) {
-                if (!recordMap.containsKey(pid))
-                    continue;
-                for (int oppId : players) {
-                    if (oppId == pid || !recordMap.containsKey(oppId))
-                        continue;
-                    recordMap.get(pid).oppPoints += recordMap.get(oppId).points;
-                }
-            }
-        }
-
-        List<PlayerRecord> list = new ArrayList<>(recordMap.values());
-        list.sort(Comparator
-                .comparingDouble((PlayerRecord p) -> p.points).reversed()
-                .thenComparingDouble((PlayerRecord p) -> p.oppPoints).reversed()
-                .thenComparingInt((PlayerRecord p) -> p.elo).reversed());
-
-        int rank = 1;
-        for (PlayerRecord p : list) {
-            p.rank = rank++;
-        }
-
-        return list;
-    }
-
     public static class RoundInfo {
         public int round;
         public String status;
@@ -248,28 +160,6 @@ public class TournamentDAO extends DAO {
         public RoundInfo(int round, String status) {
             this.round = round;
             this.status = status;
-        }
-    }
-
-    public static class PlayerRecord {
-        public int rank;
-        public int id;
-        public String name;
-        public int year;
-        public String nation;
-        public double points;
-        public double oppPoints;
-        public int elo;
-
-        public PlayerRecord(int id, String name, int year, String nation,
-                double points, double oppPoints, int elo) {
-            this.id = id;
-            this.name = name;
-            this.year = year;
-            this.nation = nation;
-            this.points = points;
-            this.oppPoints = oppPoints;
-            this.elo = elo;
         }
     }
 }
