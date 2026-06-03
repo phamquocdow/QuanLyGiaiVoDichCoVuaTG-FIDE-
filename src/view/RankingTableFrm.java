@@ -49,7 +49,7 @@ public class RankingTableFrm extends javax.swing.JFrame {
         tblRanking.setModel(new DefaultTableModel(
                 new Object[][] {},
                 new String[] {
-                        "ID", "Tên", "Năm sinh", "Quốc tịch",
+                        "Hạng", "ID", "Tên", "Năm sinh", "Quốc tịch",
                         "Tổng điểm", "Tổng điểm đối thủ đã gặp", "Elo tức thời"
                 }) {
             public boolean isCellEditable(int r, int c) {
@@ -59,9 +59,15 @@ public class RankingTableFrm extends javax.swing.JFrame {
 
         javax.swing.table.DefaultTableCellRenderer centerRenderer = new javax.swing.table.DefaultTableCellRenderer();
         centerRenderer.setHorizontalAlignment(SwingConstants.CENTER);
-        for (int i : new int[] { 0, 2, 4, 5, 6 }) {
+        for (int i : new int[] { 0, 1, 3, 5, 6, 7 }) {
             tblRanking.getColumnModel().getColumn(i).setCellRenderer(centerRenderer);
         }
+
+        tblRanking.getColumnModel().getColumn(0).setPreferredWidth(50);
+        tblRanking.getColumnModel().getColumn(0).setMaxWidth(60);
+
+        tblRanking.getColumnModel().getColumn(1).setPreferredWidth(50);
+        tblRanking.getColumnModel().getColumn(1).setMaxWidth(60);
 
         jScrollPane1.setViewportView(tblRanking);
 
@@ -104,6 +110,7 @@ public class RankingTableFrm extends javax.swing.JFrame {
 
         for (TournamentDAO.PlayerRecord p : list) {
             m.addRow(new Object[] {
+                    p.rank,
                     p.id,
                     p.name,
                     p.year,
@@ -116,19 +123,13 @@ public class RankingTableFrm extends javax.swing.JFrame {
 
         TableRowSorter<DefaultTableModel> sorter = new TableRowSorter<>(m);
         sorter.setComparator(0, Comparator.comparingInt(o -> ((Number) o).intValue()));
-        sorter.setComparator(2, Comparator.comparingInt(o -> ((Number) o).intValue()));
-        sorter.setComparator(4, Comparator.comparingDouble(o -> ((Number) o).doubleValue()));
+        sorter.setComparator(1, Comparator.comparingInt(o -> ((Number) o).intValue()));
+        sorter.setComparator(3, Comparator.comparingInt(o -> ((Number) o).intValue()));
         sorter.setComparator(5, Comparator.comparingDouble(o -> ((Number) o).doubleValue()));
-        sorter.setComparator(6, Comparator.comparingInt(o -> ((Number) o).intValue()));
+        sorter.setComparator(6, Comparator.comparingDouble(o -> ((Number) o).doubleValue()));
+        sorter.setComparator(7, Comparator.comparingInt(o -> ((Number) o).intValue()));
 
         tblRanking.setRowSorter(sorter);
-
-        List<SortKey> keys = new ArrayList<>();
-        keys.add(new SortKey(4, SortOrder.DESCENDING));
-        keys.add(new SortKey(5, SortOrder.DESCENDING));
-        keys.add(new SortKey(6, SortOrder.DESCENDING));
-        sorter.setSortKeys(keys);
-        sorter.sort();
     }
 
     private JLabel jLabel1;
