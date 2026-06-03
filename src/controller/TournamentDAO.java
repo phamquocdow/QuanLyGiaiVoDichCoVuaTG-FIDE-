@@ -10,8 +10,6 @@ import java.util.List;
 import java.util.Map;
 
 public class TournamentDAO extends DAO {
-    private RoundDAO roundDAO = new RoundDAO();
-    private Map<Integer, Integer> roundIds = new HashMap<>();
 
     public TournamentDAO() {
         super();
@@ -86,16 +84,6 @@ public class TournamentDAO extends DAO {
             e.printStackTrace();
         }
         return -1;
-    }
-
-    private void loadRoundIds() {
-        int latestTournamentID = getLatestTournamentID();
-        if (latestTournamentID < 0)
-            return;
-        List<model.Round> rounds = roundDAO.getRoundList(latestTournamentID);
-        for (model.Round r : rounds) {
-            roundIds.put(r.getRoundNum(), r.getID());
-        }
     }
 
     public int countTotalMatches(int roundId) {
