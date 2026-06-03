@@ -157,7 +157,7 @@ public class TournamentDAO extends DAO {
         int latestTournamentID = getLatestTournamentID();
         Map<Integer, PlayerRecord> recordMap = new HashMap<>();
 
-        String sqlPoints = "SELECT p.ID, p.name, p.birthYear, p.nation, p.eloRating, " +
+        String sqlPoints = "SELECT p.ID, p.name, p.bornYear, p.nation, p.eloRating, " +
                 "       COALESCE(SUM(res.score), 0)     AS totalPoints, " +
                 "       COALESCE(SUM(res.eloChange), 0) AS totalEloChange " +
                 "FROM tblPlayer p " +
@@ -168,7 +168,7 @@ public class TournamentDAO extends DAO {
                 "LEFT JOIN tblRound rnd  ON rnd.ID = m.tblRoundID " +
                 "     AND rnd.tblTournamentID = ? " +
                 "     AND rnd.roundNum <= ? " +
-                "GROUP BY p.ID, p.name, p.birthYear, p.nation, p.eloRating";
+                "GROUP BY p.ID, p.name, p.bornYear, p.nation, p.eloRating";
 
         try (PreparedStatement ps = con.prepareStatement(sqlPoints)) {
             ps.setInt(1, latestTournamentID);
@@ -183,7 +183,7 @@ public class TournamentDAO extends DAO {
                 PlayerRecord pr = new PlayerRecord(
                         rs.getInt("ID"),
                         rs.getString("name"),
-                        rs.getInt("birthYear"),
+                        rs.getInt("bornYear"),
                         rs.getString("nation"),
                         rs.getDouble("totalPoints"),
                         0.0,
