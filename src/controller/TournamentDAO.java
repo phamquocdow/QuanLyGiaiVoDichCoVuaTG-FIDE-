@@ -15,7 +15,6 @@ public class TournamentDAO extends DAO {
 
     public TournamentDAO() {
         super();
-        loadRoundIds();
     }
 
     public ArrayList<Tournament> getAllFinishedTournaments() {
