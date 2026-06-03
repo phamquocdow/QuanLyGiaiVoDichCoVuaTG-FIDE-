@@ -86,20 +86,6 @@ public class TournamentDAO extends DAO {
         return -1;
     }
 
-    public int countTotalMatches(int roundId) {
-        int count = 0;
-        try (PreparedStatement ps = con.prepareStatement(
-                "SELECT COUNT(*) FROM tblMatch WHERE tblRoundID = ?")) {
-            ps.setInt(1, roundId);
-            ResultSet rs = ps.executeQuery();
-            if (rs.next())
-                count = rs.getInt(1);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return count;
-    }
-
     public int countMatchesWithoutResult(int roundId) {
         int count = 0;
         String sql = "SELECT COUNT(*) FROM tblMatch m " +
