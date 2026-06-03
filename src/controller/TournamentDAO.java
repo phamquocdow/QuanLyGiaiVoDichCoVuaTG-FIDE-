@@ -4,17 +4,11 @@ import model.Tournament;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
 public class TournamentDAO extends DAO {
-    private RoundDAO roundDAO = new RoundDAO();
-    private Map<Integer, Integer> roundIds = new HashMap<>();
 
     public TournamentDAO() {
         super();
-        loadRoundIds();
     }
 
     public ArrayList<Tournament> getAllFinishedTournaments() {
@@ -86,48 +80,6 @@ public class TournamentDAO extends DAO {
             e.printStackTrace();
         }
         return -1;
-    }
-
-    private void loadRoundIds() {
-        int latestTournamentID = getLatestTournamentID();
-        if (latestTournamentID < 0)
-            return;
-        List<model.Round> rounds = roundDAO.getRoundList(latestTournamentID);
-        for (model.Round r : rounds) {
-            roundIds.put(r.getRoundNum(), r.getID());
-        }
-    }
-
-    public int countTotalMatches(int roundId) {
-        int count = 0;
-        try (PreparedStatement ps = con.prepareStatement(
-                "SELECT COUNT(*) FROM tblMatch WHERE tblRoundID = ?")) {
-            ps.setInt(1, roundId);
-            ResultSet rs = ps.executeQuery();
-            if (rs.next())
-                count = rs.getInt(1);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return count;
-    }
-
-    public int countMatchesWithoutResult(int roundId) {
-        int count = 0;
-        String sql = "SELECT COUNT(*) FROM tblMatch m " +
-                "WHERE m.tblRoundID = ? " +
-                "AND NOT EXISTS (" +
-                "    SELECT 1 FROM tblResult r WHERE r.tblMatchID = m.ID" +
-                ")";
-        try (PreparedStatement ps = con.prepareStatement(sql)) {
-            ps.setInt(1, roundId);
-            ResultSet rs = ps.executeQuery();
-            if (rs.next())
-                count = rs.getInt(1);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return count;
     }
 
 }
