@@ -1,6 +1,8 @@
 package view;
 
-import controller.TournamentDAO;
+import service.StandingService;
+import model.Round;
+import model.Standing;
 import model.User;
 import view.viewLeaderboad.SelectRoundFrm;
 import java.awt.Color;
@@ -16,26 +18,26 @@ import javax.swing.table.TableRowSorter;
 public class RankingTableFrm extends javax.swing.JFrame {
 
     private User user;
-    private int round;
-    private TournamentDAO store;
+    private Round round;
+    private StandingService standingService;
 
-    public RankingTableFrm(User user, int round, TournamentDAO store) {
+    public RankingTableFrm(User user, Round round) {
         this.user = user;
         this.round = round;
-        this.store = store;
+        this.standingService = new StandingService();
         initComponents();
         loadRanking();
         this.setLocationRelativeTo(null);
     }
 
     private void initComponents() {
-        jLabel1 = new JLabel("Bảng xếp hạng - Vòng " + round);
+        jLabel1 = new JLabel("Bảng xếp hạng - Vòng " + round.getRoundNum());
         jScrollPane1 = new JScrollPane();
         tblRanking = new JTable();
         btnBack = new JButton();
 
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setTitle("Bảng xếp hạng - Vòng " + round);
+        setTitle("Bảng xếp hạng - Vòng " + round.getRoundNum());
 
         jLabel1.setFont(new Font("Segoe UI", Font.BOLD, 24));
         jLabel1.setHorizontalAlignment(SwingConstants.CENTER);
@@ -103,21 +105,21 @@ public class RankingTableFrm extends javax.swing.JFrame {
     }
 
     private void loadRanking() {
-        List<TournamentDAO.PlayerRecord> list = store.getRankingForRound(round);
+        List<Standing> list = standingService.loadRoundStandings(round);
 
         DefaultTableModel m = (DefaultTableModel) tblRanking.getModel();
         m.setRowCount(0);
 
-        for (TournamentDAO.PlayerRecord p : list) {
+        for (Standing s : list) {
             m.addRow(new Object[] {
-                    p.rank,
-                    p.id,
-                    p.name,
-                    p.year,
-                    p.nation,
-                    p.points,
-                    p.oppPoints,
-                    p.elo
+                    s.getRank(),
+                    s.getPlayer().getID(),
+                    s.getPlayer().getName(),
+                    s.getPlayer().getBornYear(),
+                    s.getPlayer().getNation(),
+                    s.getTotalScore(),
+                    s.getTotalOpponentScore(),
+                    s.getCurrentElo()
             });
         }
 
