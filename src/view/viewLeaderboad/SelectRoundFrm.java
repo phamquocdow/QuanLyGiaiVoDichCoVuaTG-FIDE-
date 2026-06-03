@@ -1,6 +1,7 @@
 package view.viewLeaderboad;
 
 import controller.TournamentDAO;
+import controller.RoundDAO;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.MouseAdapter;
@@ -8,6 +9,7 @@ import java.awt.event.MouseEvent;
 import java.util.List;
 
 import model.User;
+import model.Round;
 import view.RankingTableFrm;
 import view.StatisticMenuFrm;
 
@@ -109,8 +111,28 @@ public class SelectRoundFrm extends javax.swing.JFrame {
                                                 break;
 
                                         case "Đã diễn ra":
-                                                new RankingTableFrm(user, roundNum, store).setVisible(true);
-                                                dispose();
+                                                RoundDAO roundDAO = new RoundDAO();
+                                                int latestTourId = store.getLatestTournamentID();
+                                                List<Round> roundsList = roundDAO.getRoundList(latestTourId);
+
+                                                Round selectedRound = null;
+
+                                                for (Round r : roundsList) {
+                                                        if (r.getRoundNum() == roundNum) {
+                                                                selectedRound = r;
+                                                                break;
+                                                        }
+                                                }
+
+                                                if (selectedRound != null) {
+                                                        new RankingTableFrm(user, selectedRound).setVisible(true);
+                                                        dispose();
+                                                } else {
+                                                        JOptionPane.showMessageDialog(
+                                                                        SelectRoundFrm.this,
+                                                                        "Không tìm thấy dữ liệu vòng đấu!",
+                                                                        "Lỗi", JOptionPane.ERROR_MESSAGE);
+                                                }
                                                 break;
                                 }
                         }
