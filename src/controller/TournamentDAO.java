@@ -130,36 +130,4 @@ public class TournamentDAO extends DAO {
         }
         return count;
     }
-
-    public List<RoundInfo> getRounds() {
-        List<RoundInfo> rounds = new ArrayList<>();
-        for (int i = 1; i <= 11; i++) {
-            if (!roundIds.containsKey(i)) {
-                rounds.add(new RoundInfo(i, "Chưa diễn ra"));
-                continue;
-            }
-            int id = roundIds.get(i);
-            int total = countTotalMatches(id);
-            int missing = countMatchesWithoutResult(id);
-
-            String status;
-            if (missing == 0 && total > 0) {
-                status = "Đã diễn ra";
-            } else {
-                status = "Đang diễn ra";
-            }
-            rounds.add(new RoundInfo(i, status));
-        }
-        return rounds;
-    }
-
-    public static class RoundInfo {
-        public int round;
-        public String status;
-
-        public RoundInfo(int round, String status) {
-            this.round = round;
-            this.status = status;
-        }
-    }
 }
