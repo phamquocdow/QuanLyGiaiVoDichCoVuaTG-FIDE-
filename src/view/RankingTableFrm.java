@@ -1,6 +1,6 @@
 package view;
 
-import controller.DataStore;
+import controller.TournamentDAO;
 import model.User;
 import view.viewLeaderboad.SelectRoundFrm;
 import java.awt.Color;
@@ -17,9 +17,9 @@ public class RankingTableFrm extends javax.swing.JFrame {
 
     private User user;
     private int round;
-    private DataStore store;
+    private TournamentDAO store;
 
-    public RankingTableFrm(User user, int round, DataStore store) {
+    public RankingTableFrm(User user, int round, TournamentDAO store) {
         this.user = user;
         this.round = round;
         this.store = store;
@@ -97,12 +97,12 @@ public class RankingTableFrm extends javax.swing.JFrame {
     }
 
     private void loadRanking() {
-        List<DataStore.PlayerRecord> list = store.getRankingForRound(round);
+        List<TournamentDAO.PlayerRecord> list = store.getRankingForRound(round);
 
         DefaultTableModel m = (DefaultTableModel) tblRanking.getModel();
         m.setRowCount(0);
 
-        for (DataStore.PlayerRecord p : list) {
+        for (TournamentDAO.PlayerRecord p : list) {
             m.addRow(new Object[] {
                     p.id,
                     p.name,
