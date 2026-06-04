@@ -1,5 +1,12 @@
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
+ */
 package view.managing;
-
+/**
+ *
+ * @author Hung
+ */
 import controller.PlayerDAO;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -9,14 +16,15 @@ import model.Player;
 public class EditPlayerFrm extends javax.swing.JFrame implements ActionListener {
     
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(EditPlayerFrm.class.getName());
-
+    /**
+     * Creates new form EditPlayerFrm
+     */
     private User user;
     private Player player;
     public EditPlayerFrm(User user, Player player) {
         this.user = user;
         this.player = player;
         initComponents();
-        this.setLocationRelativeTo(null);
         txtFideID.setText(player.getFideID());
         txtName.setText(player.getName());
         txtBornYear.setText(String.valueOf(player.getBornYear()));
@@ -30,6 +38,7 @@ public class EditPlayerFrm extends javax.swing.JFrame implements ActionListener 
     
 
     @SuppressWarnings("unchecked")
+    // <editor-fold defaultstate="collapsed" desc="Generated Code">                          
     private void initComponents() {
 
         jLabel1 = new javax.swing.JLabel();
@@ -169,7 +178,7 @@ public class EditPlayerFrm extends javax.swing.JFrame implements ActionListener 
         );
 
         pack();
-    }
+    }// </editor-fold>                        
 
     private void txtFideIDActionPerformed(java.awt.event.ActionEvent evt) {
     }
@@ -177,6 +186,7 @@ public class EditPlayerFrm extends javax.swing.JFrame implements ActionListener 
     private void txtNationActionPerformed(java.awt.event.ActionEvent evt) {
     }
 
+    // Variables declaration - do not modify                     
     private javax.swing.JButton btnBack;
     private javax.swing.JButton btnReset;
     private javax.swing.JButton btnUpdate;
@@ -193,6 +203,7 @@ public class EditPlayerFrm extends javax.swing.JFrame implements ActionListener 
     private javax.swing.JTextField txtName;
     private javax.swing.JTextField txtNation;
     private javax.swing.JTextField txtNote;
+    // End of variables declaration                   
 
     @Override
     public void actionPerformed(ActionEvent e) {
